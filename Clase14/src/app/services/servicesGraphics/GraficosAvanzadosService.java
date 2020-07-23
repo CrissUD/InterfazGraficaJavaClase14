@@ -28,6 +28,8 @@ import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.table.DefaultTableCellRenderer;
 
+/** @author Cristian Felipe Patiño Cáceres */
+
 public class GraficosAvanzadosService {
     
     static private GraficosAvanzadosService servicio;
