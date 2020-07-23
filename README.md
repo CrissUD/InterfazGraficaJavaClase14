@@ -149,7 +149,7 @@ Este método retorna un tipo de objeto **Component** pero debemos aclarar de una
 
 Ademas este método recibe varios parámetros como:
 * **JTable: tabla**: Nos indica la tabla donde esta contenida la celda que vamos a personalizar.
-* **Object: value**: Nos indica el contenido que tiene dicha celda (el texto en nuestro caso, cabe aclarar que una celda puede contener una imagen un botón un textfield etc).
+* **Object: value**: Nos indica el contenido que tiene dicha celda (el texto en nuestro caso, cabe aclarar que una celda puede contener una imágen un botón un textfield etc).
 * **boolean isSelected**: Nos sirve para comprobar si la fila donde esta la celda dentro de la tabla se ha seleccionado.
 * **boolean hasFocus**: Nos sirve para verificar si la celda en particular se seleccionó.
 * **int row**: Nos indica la fila donde la celda esta posicionada.
@@ -348,16 +348,16 @@ De esta forma ha quedado listo nuestro método para personalizar la tabla.
 
 # Personalización de un SrollBar
 
-Cuando creamos la tabla en la sesión 11 también se realizo la personalización del ScrollBar vertical del **JScrollPane** esto debido a que el ScrollBar que viene por defecto se ve algo antiguo y no concuerda muchas veces con el resto de nuestra interfaz, para personalizar este objeto usamos el método **getVerticalScrollBar** de nuestro **JScrollPane** que nos devolvía el objeto del **ScrollBar** Vertical y seguido a eso llamamos al método **setUI** este es el encargado de configurar una personalización al ScrollBar.
+Cuando creamos la tabla en la sesión 11 también se realizo la personalización del ScrollBar vertical del **JScrollPane** esto debido a que el ScrollBar que viene por defecto se ve algo antiguo y no concuerda muchas veces con el resto de nuestra interfaz, para personalizar este objeto usamos el método **getVerticalScrollBar** de nuestro **JScrollPane** que nos devolvía el objeto del **ScrollBar** vertical y seguido a eso llamamos al método **setUI** este es el encargado de configurar una personalización al ScrollBar.
 
 <div align='center'>
     <img  src='https://i.imgur.com/GGtu7Pi.png'>
     <p>Uso de métodos para personalizar el ScrollBar vertical.</p>
 </div>
 
-El método **SetUI** debe recibir por parámetro un objeto de tipo **ScrollBarUI:** Que será el objeto del Scroll personalizado.
+El método **SetUI** debe recibir por parámetro un objeto de tipo **ScrollBarUI**, este objeto será el responsable de la personalización del ScrollBar.
 
-Antes de continuar debemos ver las partes que conforman un **ScrollBar** y de esta forma comprenderemos mejor el código que se explicara a continuación:
+Antes de continuar debemos ver las partes que conforman un **ScrollBar** y de esta forma comprenderemos mejor el código que se explicará a continuación:
 <div align='center'>
     <img  src='https://i.imgur.com/MZaNSYw.png'>
     <p>Partes de un ScrollBar.</p>
@@ -365,10 +365,10 @@ Antes de continuar debemos ver las partes que conforman un **ScrollBar** y de es
 
 Podemos observar que un ScrollBar contiene 3 partes principales: 
 * **Track:** Es el recuadro de fondo que contiene los demás elementos y por el cual podrá moverse el Thumb.
-* **Thumb:** Es el recuadro que se moverá a traves del Track y por el cual nosotros podremos navegar en la pantalla.
+* **Thumb:** Es el recuadro o barra que se moverá a traves del Track y por el cual nosotros podremos navegar en la pantalla.
 * **Buttons:** Son los botones que están en cada esquina del track y con los cuales también podremos navegar y mover el Thumb.
 
-Notamos que para obtener este ScrollBar personalizado llamamos al método **devolverScrollPersonalizado** del servicio **GraficosAvanzadosService**. vamos a ver que realizamos en este método, para empezar vamos a ver su definición:
+Notamos que para obtener este ScrollBar personalizado llamamos al método **devolverScrollPersonalizado** del servicio **GraficosAvanzadosService**. vamos a ver que realizamos en este método, para empezar veamos su definición:
 ```javascript
 public BasicScrollBarUI devolverScrollPersonalizado(
     int grosor, int radio, Color colorFondo, Color colorBarraNormal, Color colorBarraArrastrada
@@ -385,12 +385,12 @@ Podemos notar que este método retorna un objeto de tipo **BasicScrollBarUI** y 
     <p>Definición de la clase BasicScrollBarUI.</p>
 </div>
 
-También podemos notar que recibe por parámetros dos cosas:
+También podemos notar que el método recibe por parámetros varias cosas:
 * **Grosor**: Representa el grosor de la barra de navegación dentro del ScrollBar (Thumb).
-* **Radio**: Representa el radio de los bordes de la barra de navegación (Thumb).
-* **ColorFondo**: Representa el color del recuadro donde se encuentra la barra, es decir el color del track.
+* **Radio**: Representa el radio de los bordes de la barra de navegación (Thumb) Para hacer que esta sea un rectángulo con bordes redondeados o un rectángulo recto.
+* **ColorFondo**: Representa el color del recuadro donde se encuentra la barra (color del track).
 * **ColorBarraNormal**: Representa el color de la barra mientras esta quieta.
-* **ColorBarraArrastrada**: Representa el color de la barra mientras se esta oprimiendo con el Mouse mientras se arrastra.
+* **ColorBarraArrastrada**: Representa el color de la barra mientras se esta oprimiendo con el Mouse y se arrastra.
 
 Como definimos que el método retorna un objeto de este tipo vamos a crear un objeto a traves de una ejemplificación anónima de esta clase y de una vez vamos a indicar que retornaremos este objeto anónimo:
 
@@ -484,7 +484,7 @@ También se puede retornar un botón como lo estamos haciendo en este momento es
     <p>ScrollBar con botones vacíos.</p>
 </div>
 
-En nuestro caso queremos que en nuestro ScrollBar los botónes no sean visibles, para esto podríamos indicarle a nuestros botónes que tengan un tamaño de 0 en x y 0 en y llamando al método **setSize**, sin embargo esto no funcionara, el compilador volverá a crear un Botón vació como en la anterior imágen. En este caso vamos a necesitar el método **setPreferredSize** que nos pide como parámetro un objeto dimensión, primero vamos a crear una variable de tipo dimensión dentro de la configuración del objeto **BasicScrollBar** :
+En nuestro caso queremos que en nuestro ScrollBar los botónes no sean visibles, para esto podríamos indicarle a nuestros botónes que tengan un tamaño de 0 en x y 0 en y llamando al método **setSize**, sin embargo esto no funcionará, el compilador volverá a crear un botón vació como en la anterior imágen. En este caso vamos a necesitar el método **setPreferredSize** que nos pide como parámetro un objeto dimensión, primero vamos a crear una variable de tipo dimensión dentro de la configuración del objeto **BasicScrollBar** :
 
 ```javascript
 public BasicScrollBarUI devolverScrollPersonalizado(
@@ -525,7 +525,7 @@ public BasicScrollBarUI devolverScrollPersonalizado(
 }
 ```
 
-De esta forma nuestros botones no serán visibles dentro del ScrollBar. Ahora vamos a ocuparnos del **track** para este caso vamos a pintar un rectángulo que ocupara el total de las dimensiones del ScrollBar, y se pintara con el color de fondo que se proporciono por parámetros:
+De esta forma nuestros botones no serán visibles dentro del ScrollBar. Ahora vamos a ocuparnos del **track** para este caso vamos a pintar un rectángulo que ocupara el total de las dimensiones del ScrollBar, y se pintara con el color de fondo que se proporcionó por parámetros:
 ```javascript
 public BasicScrollBarUI devolverScrollPersonalizado(
     int grosor, int radio, Color colorFondo, Color colorBarraNormal, Color colorBarraArrastrada
@@ -548,7 +548,7 @@ public BasicScrollBarUI devolverScrollPersonalizado(
 
 Para pintar el rectángulo usamos el parámetro **Graphics** que tiene el método implementado, para hallar las dimensiones del ScrollBar como la posición y el tamaño usamos el objeto **Rectangle**.
 
-Ahora vamos a pintar el **Thumb** o barra de navegación, en este caso queremos pintar un rectángulo con bordes redondeados, como el rectángulo tendrá curvas, sería bueno pintarlo con un objeto **Graphics2D** asi que vamos a crear este objeto a traves del padre **Graphics** que obtenemos desde los parámetros, de una vez vamos a configurar los algoritmos para una mejor calidad de renderizado:
+Es hora de pintar el **Thumb** o barra de navegación, en este caso queremos pintar un rectángulo con bordes redondeados, como el rectángulo tendrá curvas, sería bueno pintarlo con un objeto **Graphics2D** asi que vamos a crear este objeto a traves del padre **Graphics** que obtenemos desde los parámetros, de una vez configuraremos los algoritmos para una mejor calidad de renderizado:
 
 ```javascript
 public BasicScrollBarUI devolverScrollPersonalizado(
@@ -568,7 +568,7 @@ public BasicScrollBarUI devolverScrollPersonalizado(
 }
 ```
 
-También vamos a crear un objeto tipo **JScrollBar** esto para verificar algunas condiciones y para esto vamos a obtenerlo a traves del parámetro **Component** y vamos a hacer el **Cast** correspondiente:
+Crearemos ahora un objeto tipo **JScrollBar** esto para verificar algunas condiciones, podemos obtenerlo a traves del parámetro **Component** y vamos a hacer el **Cast** correspondiente:
 ```javascript
 public BasicScrollBarUI devolverScrollPersonalizado(
     int grosor, int radio, Color colorFondo, Color colorBarraNormal, Color colorBarraArrastrada
@@ -587,7 +587,7 @@ public BasicScrollBarUI devolverScrollPersonalizado(
     };
 }
 ```
-Ahora vamos a crear una condición y es que en los casos en que un objeto gráfico no ocupe un tamaño mayor a las dimensiones del **JScrollPane** no necesitamos mostrar los **ScrollBarr**, esto lo haremos preguntando si el ScrollBar esta habilitado o no, en caso de estar deshabilitado no vamos nada:
+Ahora vamos a crear una condición y es que en los casos en que un objeto gráfico no ocupe un tamaño mayor a las dimensiones del **JScrollPane** no necesitamos mostrar los **ScrollBarr**, esto lo haremos preguntando si el ScrollBar esta habilitado o no, en caso de estar deshabilitado no retornaremos nada:
 ```javascript
 public BasicScrollBarUI devolverScrollPersonalizado(
     int grosor, int radio, Color colorFondo, Color colorBarraNormal, Color colorBarraArrastrada
@@ -609,7 +609,7 @@ public BasicScrollBarUI devolverScrollPersonalizado(
 }
 ```
 
-Ahora en el caso en que si este habilitado vamos a crear una segunda condición, en este caso preguntando si el usuario esta arrastrando la barra a traves del mouse, en ese caso vamos a configurar el color cuando se esta arrastrando que pasamos por el parámetro:
+Ahora en el caso en que si este habilitado vamos a crear una segunda condición, preguntando si el usuario esta arrastrando la barra a traves del mouse, en ese caso vamos a configurar el color cuando se esta arrastrando que pasamos por el parámetro:
 ```javascript
 public BasicScrollBarUI devolverScrollPersonalizado(
     int grosor, int radio, Color colorFondo, Color colorBarraNormal, Color colorBarraArrastrada
@@ -632,7 +632,7 @@ public BasicScrollBarUI devolverScrollPersonalizado(
     };
 }
 ```
-Crearemos una tercera condición, para este caso vamos a preguntar si el usuario esta moviendo el ScrollBar a traves del Wheel o rueda del Mouse, para este caso nosotros optamos configurarle el color normal de la barra pasado por parámetro pero el desarrollador podrá elegir si dejar este color o cambiarlo por otro:
+Crearemos una tercera condición, donde vamos a preguntar si el usuario esta moviendo el ScrollBar a traves del Wheel o rueda del Mouse, para este caso nosotros optamos configurarle el color normal de la barra pasado por parámetro pero el desarrollador podrá elegir si dejar este color o cambiarlo por otro:
 ```javascript
 public BasicScrollBarUI devolverScrollPersonalizado(
     int grosor, int radio, Color colorFondo, Color colorBarraNormal, Color colorBarraArrastrada
@@ -685,7 +685,7 @@ public BasicScrollBarUI devolverScrollPersonalizado(
 }
 ```
 
-Ahora vamos a crear un condicional aparte, este será para preguntar si vamos a pintar un **ScrollBar Horizontal o Vertical**, esto es importante ya que en muchos casos se podrían usar cualquiera de los dos y debemos tener presente esto, para saber esto basta con tomar las dimensiones del ScrollBar y preguntar cual dimensión es mas grande, el ancho o el alto:
+Ahora se crea un condicional aparte, este será para preguntar si se va a pintar un **ScrollBar Horizontal o Vertical**, esto es importante ya que en muchos casos se podrían usar cualquiera de los dos y debemos tener presente esto, para saber esto basta con tomar las dimensiones del ScrollBar y preguntar cual dimensión es mas grande, el ancho o el alto:
 ```javascript
 public BasicScrollBarUI devolverScrollPersonalizado(
     int grosor, int radio, Color colorFondo, Color colorBarraNormal, Color colorBarraArrastrada
@@ -816,7 +816,7 @@ public BasicScrollBarUI devolverScrollPersonalizado(
 
 Para el primer caso al ser un **ScrollBar Vertical** se dejara un ancho igual al grosor proporcionado por parámetro y la altura que por defecto se da para el Thumb, para el segundo caso al ser un **ScrollBar Horizontal** se dejara un ancho por defecto que se da para el Thumb y la altura igual al grosor que se proporciono por parámetro. Esto hará que las barras de navegación sean tan delgadas o gruesas como el desarrollador elija.
 
-Finalmente vamos a configurar los bordes, para este caso vamos a proporcionar el radio que se paso por parámetro, de esta forma la barra podrá quedar con bordes circulares o sin como un rectángulo con esquinas rectas, depende de como configure el desarrollador.
+Finalmente vamos a configurar los bordes, para este caso se proporciona el radio que se paso por parámetro, de esta forma la barra podrá quedar con bordes redondeados o como un rectángulo con esquinas rectas, depende de como configure el desarrollador.
 ```javascript
 public BasicScrollBarUI devolverScrollPersonalizado(
     int grosor, int radio, Color colorFondo, Color colorBarraNormal, Color colorBarraArrastrada
@@ -1039,7 +1039,7 @@ Podemos observar que el método retorna un objeto tipo Border y recibe por pará
 * **Color de borde:** Muchas veces se va querer construir este tipo de bordes con un contorno de algún color, para estos casos enviaremos un color.
 * **Radio:** Representa el ancho y alto que tendrán los bordes redondeados del rectángulo, entre mas alto mas se notarán estos bordes.
 * **esLineal**: Es un booleano que nos sirve para verificar si queremos que solo se vea el contorno del borde o vamos a crear un borde redondeado sin una linea que denote el borde.
-* **Imagen**: Este parámetro se utilizara en casos especiales en donde el objeto gráfico al cual se le va a aplicar el borde redondeado está encima de una imágen o fondo.
+* **Imágen**: Este parámetro se utilizara en casos especiales en donde el objeto gráfico al cual se le va a aplicar el borde redondeado está encima de una imágen o fondo.
 
 Con lo anterior podemos darnos cuenta que existen 3 casos para querer usar estos bordes:
 * Borde redondeado con un contorno (una linea que denota el borde).
@@ -1266,11 +1266,11 @@ public void dibujarFondo(Component c, Component padreContenedor, Image imagen, G
 Los parámetros que pide son:
 * **Objeto Gráfico**: Al cual se le aplicará el borde.
 * **Objeto Gráfico**: Que contiene al objeto que se le aplicará el borde.
-* **Imagen**: En caso de que el objeto este encima de una imagen de fondo se pedirá esta.
+* **Imágen**: En caso de que el objeto este encima de una imágen de fondo se pedirá esta.
 * **Graphics2D**: El cual pintara el fondo.
 * **Ancho y Alto**: Tamaño del Objeto Gráfico.
 
-Lo primero que haremos es preguntar si se ha enviado una imagen, para ese caso se sabe que se tiene un fondo y se deberá pintar para simular una transparencia.
+Lo primero que haremos es preguntar si se ha enviado una imágen, para ese caso se sabe que se tiene un fondo y se deberá pintar para simular una transparencia.
 ```javascript
 public void dibujarFondo(Component c, Component padreContenedor, Image imagen, Graphics2D g2, int ancho, int alto){
     if(imagen != null)
@@ -1284,21 +1284,21 @@ public void dibujarFondo(Component c, Component padreContenedor, Image imagen, G
     }
 }
 ```
-En este caso se dibuja una imágen usando el enfoque que se uso para pintar **Sprites**, lo que se hace es recortar la imagen original justo en la parte donde debería estar el objeto gráfico esto es para que en las esquinas que sobran del borde se vea pintada la imágen y de esa forma simule una transparencia. A continuación se muestra un ejemplo de lo que se quiere explicar con un Login.
+En este caso se dibuja una imágen usando el enfoque que se uso para pintar **Sprites**, lo que se hace es recortar la imágen original justo en la parte donde debería estar el objeto gráfico esto es para que en las esquinas que sobran del borde se vea pintada la imágen y de esa forma simule una transparencia. A continuación se muestra un ejemplo de lo que se quiere explicar con un Login.
 <div align='center'>
     <img  src='https://i.imgur.com/PQUgadS.png'>
     <p>Bordes redondeados sin imágen.</p>
 </div>
 
-En este caso se quería implementar los bordes redondeados en el panel, sin embargo no se envió la imagen, incluso si se pintan los bordes restantes de transparente no hará efecto. 
+En este caso se quería implementar los bordes redondeados en el panel, sin embargo no se envió la imágen, incluso si se pintan los bordes restantes de transparente no hará efecto. 
 
 <div align='center'>
     <img  src='https://i.imgur.com/R9xgzt6.png'>
     <p>Bordes redondeados con imágen.</p>
 </div>
-Para este caso se pinto la imágen justo en los bordes creando un efecto de transparencia. El método esta implementado de tal forma que el desarrollador no tiene que preocuparse mas que por enviar la imagen, eso si con las mismas dimensiónes que tiene la imagen en el fondo.
+Para este caso se pinto la imágen justo en los bordes creando un efecto de transparencia. El método esta implementado de tal forma que el desarrollador no tiene que preocuparse mas que por enviar la imágen, eso si con las mismas dimensiónes que tiene la imágen en el fondo.
 
-Volviendo con nuestro método, en caso contrarió cuando no hay una imagen de fondo se pintara simplemente un rectangulo que tendrá el color de fondo del contenedor padre.
+Volviendo con nuestro método, en caso contrarió cuando no hay una imágen de fondo se pintara simplemente un rectangulo que tendrá el color de fondo del contenedor padre.
 ```javascript
 public void dibujarFondo(Component c, Component padreContenedor, Image imagen, Graphics2D g2, int ancho, int alto){
     if(imagen != null)
