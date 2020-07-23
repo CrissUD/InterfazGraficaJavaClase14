@@ -10,8 +10,8 @@ Curso propuesto por el grupo de trabajo Semana de Ingenio y Diseño (**SID**) de
 
 ## Objetivos
 
-* Reconocer la forma de utilizar el servicio Gráficos avanzados para realizar decoraciones especiales en nuestros objetos gráficos dentro de nuestro proyecto.
-* Determinar el proceso interno de cada uno de los métodos contenidos dentro del servicio Gráficos avanzados y cual es propósito de estos métodos.
+* Reconocer la forma de utilizar el servicio Gráficos avanzados para realizar decoraciones especiales en los objetos gráficos dentro de nuestro proyecto.
+* Determinar el proceso interno de cada uno de los métodos contenidos en del servicio Gráficos avanzados reconociendo cual es propósito de cada uno de ellos.
 * Identificar que elementos gráficos intervienen para cumplir con las acciones de cada uno de los métodos contenidos en el servicio Gráficos avanzados.
 * Mostrar ejemplos adicionales para brindar una mayor explicación de ciertas particularidades contenidas en algunos de los métodos.
 
@@ -36,7 +36,7 @@ Recordando un poco nuestro recorrido en la sesión anterior implementamos el uso
 
 ### **Aclaración:**
 
-En esta sesión se mencionara mucho la palabra **Component** pero en esta ocasión no nos estaremos refiriendo a componentes gráficos o a la clase **Component** de algún componente. Component es una clase en Java de la cual heredan todos los objetos gráficos que hemos manipulado, como los botones, labels, textField etc. Es valida la aclaración entonces por que al coincidir el nombre puede confundir un poco sin embargo cuando se hable de la palabrá **Component** en esta sesión hablaremos de esta clase particular en Java.
+En esta sesión se mencionara mucho la palabra **Component** pero en esta ocasión no nos estaremos refiriendo a componentes gráficos o a la clase **Component** de algún componente. **Component** es también una clase en Java de la cual heredan todos los objetos gráficos que hemos manipulado, como los botones, labels, textField etc. Es valida la aclaración entonces por que al coincidir el nombre puede confundir un poco, sin embargo cuando se hable de la palabrá **Component** en esta sesión hablaremos de esta clase particular de Java, a menos que se nombre explícitamente algún componente gráfico que hemos creado antes.
 
 # Servicio Gráficos Avanzados
 
@@ -50,15 +50,15 @@ En esta sesión vamos a explicar cada uno de los métodos contenidos en este ser
 
 # Decoración de una Tabla
 
-En la sesión 11 vimos brevemente que podíamos decorar nuestra tabla usando nuestro nuevo servicio **GraficosAvanzadosService**, esto nos dio la posibilidad de intercalar el color de las filas de la tabla, cambiar el color de fuente, personalizar la cabecera e incluso proporcionar un color en caso de seleccionar alguna de las filas. 
+En la sesión 11 vimos brevemente que podíamos decorar nuestra tabla usando nuestro nuevo servicio **GraficosAvanzadosService**, esto nos dio la posibilidad de intercalar el color de las filas de la tabla, cambiar el color de fuente, escoger el tipo de fuente, personalizar la cabecera e incluso proporcionar un color en caso de seleccionar alguna de las filas. 
 
 <div align='center'>
     <img  src='https://i.imgur.com/K8JYhqm.png'>
     <p>Tabla personalizada.</p>
 </div>
 
-Sin embargo se explico poco o nada de como se lograron todas estas cosas, vamos a revisar. Para empezar el método que se uso para personalizar la tabla fue **setDefaultRenderer()** este puede recibir por parámetro:
-* **ColumnClass**: Debe recibir una clase que representa las columnas que tendrá la tabla, este por lo general no representa una vital importancia ya que no influye en la personalización y por esto se suele colocar como argumento **Object.class** representando que se enviara una clase cualquiera.
+Sin embargo se explico poco o nada de como se lograron todas estas cosas. Para empezar el método que se uso para personalizar la tabla fue **setDefaultRenderer()** este puede recibir por parámetro:
+* **ColumnClass**: Debe recibir una clase que representa las columnas que tendrá la tabla, este parámetro por lo general no representa una vital importancia ya que no influye en la personalización y por esto se suele colocar como argumento **Object.class** representando que se enviara una clase cualquiera.
 * **TableCellRenderer**: Es una interfaz que contiene ciertos métodos dispuesto para la personalización de una tabla.
 
 ***Nota:** El parámetro ColumnClass solo es necesario para el objeto JTable, para el JTableHeader solo se pide el segundo parámetro.*
@@ -94,7 +94,7 @@ Podemos observar lo siguiente:
 
 ***Nota:** Cabe aclarar que se recalca la frase **en nuestro caso** ya que mas adelante nos podemos dar cuenta que podemos personalizar una tabla de varias maneras y esta solo es una de ellas.*
 
-Como ya hemos visto a lo largo del curso para poder obtener **interfaces** es necesario una clase que la implemente, como es el caso de los eventos, la clase que implementa las interfaces de los eventos es la clase **Component** y a traves de esta, la clase **Template** puede indicarle a sus objetos gráficos que podrán escuchar esos eventos. Este es un caso igual, para poder obtener el parámetro/interfaz **TableCellRenderer** debemos usar una clase que implemente a esta interfaz y retornar un objeto de dicha clase. Como acabamos de ver la clase de Java **DefaultTableCellRender** cumple con este criterio asi que vamos a crear una **ejemplificación anónima** de esta clase y de una vez vamos a indicarle al método que vamos a retornar este objeto anónimo que acabamos de ejemplificar.
+Como ya hemos visto a lo largo del curso para poder obtener **interfaces** es necesario una clase que la implemente, como es el caso de los eventos, la clase que implementa las interfaces de los eventos cuando hablamos de un componente gráfico es la clase **Component** y a traves de esta, la clase **Template** puede indicarle a sus objetos gráficos que podrán escuchar esos eventos. Este es un caso igual, para poder obtener el parámetro/interfaz **TableCellRenderer** debemos usar una clase que implemente a esta interfaz y retornar un objeto de dicha clase. Como acabamos de ver la clase de Java **DefaultTableCellRender** cumple con este criterio asi que vamos a crear una **ejemplificación anónima** de esta clase y de una vez vamos a indicarle al método que vamos a retornar este objeto anónimo que acabamos de ejemplificar.
 
 ```javascript
 public DefaultTableCellRenderer devolverTablaPersonalizada(
@@ -104,7 +104,7 @@ public DefaultTableCellRenderer devolverTablaPersonalizada(
 }
 ```
 
-Hasta el momento nuestro código está bien y no nos arrojara ningún error sin embargo queremos hacer unas configuraciónes sobre este objeto, es por eso que una vez terminan los paréntesis de la ejemplificación y antes del punto y coma vamos a abrir unas llaves **"{}"** para realizar una configuración adicional:
+Hasta el momento nuestro código está bien y no nos notifica ningún error, sin embargo queremos hacer unas configuraciónes sobre este objeto, es por eso que una vez terminan los paréntesis de la ejemplificación y antes del punto y coma vamos a abrir unas llaves **"{}"** para realizar una configuración adicional:
 ```javascript
 devolverTablaPersonalizada(
         Color colorPrincipal, Color colorSecundario, Color colorSeleccion, Color colorFuente, Font fuente
@@ -128,17 +128,6 @@ public DefaultTableCellRenderer devolverTablaPersonalizada(
 
 Ahora para realizar la personalización de la tabla debemos implementar un método de la interfaz **TableCellRenderer**, este método es **getTableCellRendererComponent** recordemos que para denotar que estamos implementando un método desde una interfaz es necesario colocar el decorador **@Override** o de lo contrario Java interpretará ese método como cualquier otro que hayamos creado y no funcionará como esperamos. 
 
-Este método retorna un tipo de objeto **Component** pero debemos aclarar de una vez que en realidad lo que estamos retornando aquí es cada una de las celdas que tiene la tabla. Este método entonces se encarga de tomar las celdas dentro de la tabla una por una y tratar cada celda como si fuera un **JLabel** para que nosotros podamos personalizar dicha celda como queramos.
-
-Ademas este método recibe varios parámetros que podemos explorar si entramos al código de la interfaz:
-* **JTable: tabla**: Nos indica la tabla donde esta contenida la celda que vamos a personalizar.
-* **Object: value**: Nos indica el contenido que tiene dicha celda (el texto en nuestro caso, cabe aclarar que una celda puede contener una imagen un botón un textfield etc).
-* **boolean isSelected**: Nos sirve para comprobar si la celda dentro de la tabla se ha seleccionado.
-* **boolean hasFocus**: Nos sirve para verificar si el usuario se esta enfocando en la celda.
-* **int row**: Nos indica la fila donde la celda esta posicionada.
-* **int column**: Nos indica la columna donde la celda esa seleccionada.
-
-***Nota:** Como este método se esta implementando desde una interfaz estos parámetros los pasa automáticamente  el compilador, nosotros no debemos preocuparnos por pasar estos datos, un caso similar ocurre con los eventos, donde los parámetros **ActionEvent**, **MouseEvent** etc, son pasados a traves del compilador y nosotros hacemos uso de estos sin necesidad de pasar este parámetro de forma manual. También ocurre con el objeto **Graphics** del canvas. Esto se cumple siempre y cuando se utilice el decorador **@Override** de lo contrario el compilador no sabra que este es un método implementado y nos pedirá enviar estos parámetros de forma manual.*
 ```javascript
 public DefaultTableCellRenderer devolverTablaPersonalizada(
     Color colorPrincipal, Color colorSecundario, Color colorSeleccion, Color colorFuente, Font fuente
@@ -155,6 +144,19 @@ public DefaultTableCellRenderer devolverTablaPersonalizada(
     };
 }
 ```
+
+Este método retorna un tipo de objeto **Component** pero debemos aclarar de una vez que en realidad lo que estamos retornando aquí es cada una de las celdas que tiene la tabla. Este método entonces se encarga de tomar las celdas dentro de la tabla una por una y tratar cada celda como si fuera un **JLabel** para que nosotros podamos personalizar dicha celda como queramos.
+
+Ademas este método recibe varios parámetros como:
+* **JTable: tabla**: Nos indica la tabla donde esta contenida la celda que vamos a personalizar.
+* **Object: value**: Nos indica el contenido que tiene dicha celda (el texto en nuestro caso, cabe aclarar que una celda puede contener una imagen un botón un textfield etc).
+* **boolean isSelected**: Nos sirve para comprobar si la fila donde esta la celda dentro de la tabla se ha seleccionado.
+* **boolean hasFocus**: Nos sirve para verificar si la celda en particular se seleccionó.
+* **int row**: Nos indica la fila donde la celda esta posicionada.
+* **int column**: Nos indica la columna donde la celda esa seleccionada.
+
+***Nota:** Como este método se esta implementando desde una interfaz estos parámetros los pasa automáticamente  el compilador, nosotros no debemos preocuparnos por pasar estos datos, un caso similar ocurre con los eventos, donde los parámetros **ActionEvent**, **MouseEvent** etc, son pasados a traves del compilador y nosotros hacemos uso de estos sin necesidad de pasar este parámetro de forma manual. También ocurre con el objeto **Graphics** del canvas. Esto se cumple siempre y cuando se utilice el decorador **@Override** de lo contrario el compilador no sabrá que este es un método implementado y nos pedirá enviar estos parámetros de forma manual.*
+
 
 En este punto el compilador nos esta sacando un error ya que el método no esta retornando nada, bueno para esto vamos a crear un JLabel que representara la celda y será el objeto que retornemos:
 ```javascript
@@ -246,9 +248,9 @@ public DefaultTableCellRenderer devolverTablaPersonalizada(
             celda.setForeground(colorFuente);
             celda.setHorizontalAlignment(SwingConstants.CENTER);
             if (row % 2 != 0)
-                
+                // Configuración filas impares
             else
-
+                // Configuración filas pares
             return celda;
         }
     };
@@ -310,7 +312,7 @@ public DefaultTableCellRenderer devolverTablaPersonalizada(
     };
 }
 ```
-Dentro de este condicional haremos dos cosas, primero cambiaremos el color de fondo de la fila, luego cambiaremos el color de fuente, y esto debido a que suponemos que en la mayoría de los casos cuando se seleccione una fila se querrá mostrar un color fuerte que resalte, asi que esto podría hacer que la letra dentro de la celda se opaque un poco y para evitar esto cambiaremos el color a blanco para que la letra pueda resaltar aun mas.
+Dentro de este condicional haremos dos cosas, primero cambiaremos el color de fondo de la fila, luego cambiaremos el color de fuente, y esto debido a que suponemos que en la mayoría de los casos cuando se seleccione una fila se querrá mostrar un color fuerte que resalte, asi que esto podría hacer que la letra dentro de la celda se opaque un poco y para evitar esto cambiaremos el color de fuente a blanco para que la letra pueda resaltar aun mas.
 
 ```javascript
 public DefaultTableCellRenderer devolverTablaPersonalizada(
