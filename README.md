@@ -858,7 +858,7 @@ Para el caso de la tabla no se personalizo el ScrollBar Horizontal ya que las co
 
 # Creación de Bordes Difuminados.
 
-Vamos a ver un ejemplo de la creación de bordes difuminados, este método es solo un prototipo y por el momento solo funciona para algunos casos especiales, funciona perfectamente con colores grises claros (a partir de 210 de color) u otros colores muy claros también y que el fondo sea blanco. Aun asi se puede proporcionar cualquier color y no habrá ningún error, sin embargo no se vera tan bien el efecto Para realizar esta técnica nos vamos a basar el 3 cosas importantes:
+Vamos a ver un ejemplo de la creación de bordes difuminados, este método es solo un prototipo y por el momento solo funciona para algunos casos especiales, funciona perfectamente con colores grises claros (a partir de 210 de color) u otros colores muy claros también, ademas el fondo debe ser blanco. Aun asi se puede proporcionar cualquier color y no habrá ningún error, sin embargo no se vera tan bien el efecto. Para realizar esta técnica nos vamos a basar el 3 cosas importantes:
 
 * Creación de bordes lineales a través del borde tipo **LineBorder**.
 * Creación de bordes combinados (union entre dos bordes) de forma acumulada a través del borde **CompoundBorder**.
@@ -1030,12 +1030,12 @@ Nuestro borde difuminado se ve así:
 
 # Creación de Bordes Redondeados
 
-Como hemos comprobado antes, no es posible que alguno de nuestros objetos gráficos tengan un borde redondeados, en la clase anterior a traves del canvas realizamos una simulación de como podríamos crear un borde de este estilo, es hora de implementarlo. Primero vamos a ver la definición del método:
+Como hemos comprobado antes, no es posible que alguno de nuestros objetos gráficos tengan un borde redondeado, en la clase anterior a traves del canvas realizamos una simulación de como podríamos crear un borde de este estilo, es hora de implementarlo. Primero vamos a ver la definición del método:
 ```javascript
 public Border DibujarBordeRedondeado (Color color, int radio, boolean esLineal, Image imagen) {
 }
 ```
-Podemos observar que el método retorna un objeto tipo Border y recibe por parámetros:
+Podemos observar que el método retorna un objeto tipo **Border** y recibe por parámetros:
 * **Color de borde:** Muchas veces se va querer construir este tipo de bordes con un contorno de algún color, para estos casos enviaremos un color.
 * **Radio:** Representa el ancho y alto que tendrán los bordes redondeados del rectángulo, entre mas alto mas se notarán estos bordes.
 * **esLineal**: Es un booleano que nos sirve para verificar si queremos que solo se vea el contorno del borde o vamos a crear un borde redondeado sin una linea que denote el borde.
@@ -1046,7 +1046,7 @@ Con lo anterior podemos darnos cuenta que existen 3 casos para querer usar estos
 * Borde redondeado sin contorno.
 * Borde redondeado para un elemento que esta encima de una imagén de fondo.
 
-Para el proyecto se usara el segundo caso pero se mostrarán ejemplos de los otros dos casos para que se entienda el propósito. Lo primero que vamos a hacer es crear un objeto tipo **Border** y retornarlo ya que es lo que nos exige el método:
+Para el proyecto se usara el segundo caso pero se mostrarán ejemplos de los otros dos casos para que se entienda el propósito de esos casos. Lo primero que vamos a hacer es crear un objeto tipo **Border** y retornarlo ya que es lo que nos exige el método:
 ```javascript
 public Border DibujarBordeRedondeado (Color color, int radio, boolean esLineal, Image imagen) {
     Border bordeRedondeado = new Border();
@@ -1079,10 +1079,11 @@ public Border DibujarBordeRedondeado (Color color, int radio, boolean esLineal, 
 
 Vamos a empezar con los dos últimos métodos ya que son los mas cortos, un borde exige crear un **insert** o **Padding** esto significa un espacio entre el borde y el contenido del objeto gráfico, para esto vamos a crear un objeto tipo **Inserts** que exige en su constructor 4 parámetros estos son 4 enteros que representan:
 * **Espacio entre borde superior y contenido.**
-* **Espacio entre borde derecho y contenido.**
-* **Espacio entre borde inferior y contenido.**
 * **Espacio entre borde izquierdo y contenido.**
-Para hacerlo general vamos a crear un Padding pequeño de 2px dentro del método **getBorderInserts**, por otro lado con el método **isBorderOpaque** vamos a retornar un **true** para habilitar los casos en que se dibujará el contorno del borde y en caso de no, nosotros lo gestionaremos:
+* **Espacio entre borde inferior y contenido.**
+* **Espacio entre borde derecho y contenido.**
+
+Para hacerlo general vamos a crear un Padding pequeño de 2px, este objeto se crea dentro del método **getBorderInserts**. Por otro lado con el método **isBorderOpaque** vamos a retornar un **true** para habilitar los casos en que se dibujará el contorno del borde y en caso de no, nosotros lo gestionaremos:
 ```javascript
 public Border DibujarBordeRedondeado (Color color, int radio, boolean esLineal, Image imagen) {
     Border bordeRedondeado = new Border(){
@@ -1108,7 +1109,7 @@ Ahora nos concentraremos unicamente en el método **paintBorder**, pueden notar 
 * **Coordenadas:** Las coordenadas donde esta el objeto gráfico al cual se le añadirá el borde redondeado.
 * **Tamaño:** El tamaño del objeto gráfico al cual se le añadirá el borde redondeado.
 
-Recordemos que al ser un método implementado estos parámetros no los pasa el compilador de forma automática. También podemos cambiar el nombre de la variable y no habrá ningún problema, en este caso cambiaremos los dos últimos al español.
+Recordemos que al ser un método implementado estos parámetros los pasa el compilador de forma automática. También podemos cambiar el nombre de la variable y no habrá ningún problema, en este caso cambiaremos los dos últimos al español.
 
 Como vamos a pintar un borde con curvas vamos a necesitar crear un objeto **Graphics2D** y de una vez implementar los algoritmos de calidad de renderizado:
 ```javascript
@@ -1215,16 +1216,9 @@ public Border DibujarBordeRedondeado (Color color, int radio, boolean esLineal, 
             rectanguloBordeado.setRoundRect(x, y, ancho - 1, alto - 1, radio, radio);
             if(esLineal){
                 dibujarFondo(c, padreContenedor, imagen, g2, ancho, alto);
-                area = dibujarBorde(c, g2, color, x, y, ancho, alto, esLineal, rectanguloBordeado);
+                area = dibujarBorde(c, g2, color, x, y, ancho, alto, rectanguloBordeado);
             }
             else{
-                area = dibujarBorde(c, g2, color, x, y, ancho, alto, esLineal, rectanguloBordeado);
-                dibujarFondo(c, padreContenedor, imagen, g2, ancho, alto);
-            }
-        }
-        ...
-    };
-    return bordeRedondeado;
 }
 ```
 Finalmente para este método vamos a cambiar el contexto a nulo y pintar el area final, esto ultimo para evitar errores de pintado en futuros componentes y ademas para evitar el efecto pixeleado que se crea al poner un contexto distinto.
@@ -1243,10 +1237,10 @@ public Border DibujarBordeRedondeado (Color color, int radio, boolean esLineal, 
             rectanguloBordeado.setRoundRect(x, y, ancho - 1, alto - 1, radio, radio);
             if(esLineal){
                 dibujarFondo(c, padreContenedor, imagen, g2, ancho, alto);
-                area = dibujarBorde(c, g2, color, x, y, ancho, alto, esLineal, rectanguloBordeado);
+                area = dibujarBorde(c, g2, color, x, y, ancho, alto, rectanguloBordeado);
             }
             else{
-                area = dibujarBorde(c, g2, color, x, y, ancho, alto, esLineal, rectanguloBordeado);
+                area = dibujarBorde(c, g2, color, x, y, ancho, alto, rectanguloBordeado);
                 dibujarFondo(c, padreContenedor, imagen, g2, ancho, alto);
             }
             g2.setClip(null);
@@ -1258,7 +1252,7 @@ public Border DibujarBordeRedondeado (Color color, int radio, boolean esLineal, 
 }
 ```
 
-Ahora vamos a explicar los dos métodos auxiliares que usamos, vamos a ver la definición del método **DibujarFondo**:
+Ahora se explicarán los dos métodos auxiliares que usamos, vamos a ver la definición del método **DibujarFondo**:
 ```javascript
 public void dibujarFondo(Component c, Component padreContenedor, Image imagen, Graphics2D g2, int ancho, int alto){
 }
@@ -1298,7 +1292,7 @@ En este caso se quería implementar los bordes redondeados en el panel, sin emba
 </div>
 Para este caso se pinto la imágen justo en los bordes creando un efecto de transparencia. El método esta implementado de tal forma que el desarrollador no tiene que preocuparse mas que por enviar la imágen, eso si con las mismas dimensiónes que tiene la imágen en el fondo.
 
-Volviendo con nuestro método, en caso contrarió cuando no hay una imágen de fondo se pintara simplemente un rectangulo que tendrá el color de fondo del contenedor padre.
+Volviendo con nuestro método, en caso contrarió cuando no hay una imágen de fondo se pintará simplemente un rectangulo que tendrá el color de fondo del contenedor padre.
 ```javascript
 public void dibujarFondo(Component c, Component padreContenedor, Image imagen, Graphics2D g2, int ancho, int alto){
     if(imagen != null)
@@ -1317,7 +1311,7 @@ public void dibujarFondo(Component c, Component padreContenedor, Image imagen, G
 Ahora nos vamos a concentrar en el método **dibujarBorde**, primero veamos su definición:
 ```javascript
 public Area dibujarBorde(
-    Component c, Graphics2D g2, Color color, int x, int y, int ancho, int alto, boolean esLineal, RectangularShape figura
+    Component c, Graphics2D g2, Color color, int x, int y, int ancho, int alto, RectangularShape figura
 ){
 }
 ```
@@ -1326,13 +1320,12 @@ Este método retorna un objeto tipo **Area** y recibe por parámetros:
 * **Graphics 2D**: El objeto por el cual se pintará el borde.
 * **Posición Objeto Gráfico**.
 * **Tamaño Objeto Gráfico**.
-* **Booleano**: Nos indica si el borde tendrá contorno o no.
-* **Figura**: Recibe la figura que tendrá el borde ya que este método será llamado por varios otros métodos.
+* **Figura**: Recibe la figura que tendrá el borde ya que este método será llamado por otros métodos.
 
-Lo primero que haremos es configurar el color del contorno del borde, en caso de ser nulo se pintara con el color del objeto gráfico para que no se vea, en caso contrario obtendrá el color que se paso por parámetro:
+Lo primero que haremos es configurar el color del contorno del borde, en caso de ser nulo se pintará con el color de fondo del objeto gráfico para que no se vea, en caso contrario obtendrá el color que se paso por parámetro:
 ```javascript
 public Area dibujarBorde(
-    Component c, Graphics2D g2, Color color, int x, int y, int ancho, int alto, boolean esLineal, RectangularShape figura
+    Component c, Graphics2D g2, Color color, int x, int y, int ancho, int alto, RectangularShape figura
 ){
     if(color == null)
         g2.setPaint(c.getBackground());
@@ -1340,10 +1333,10 @@ public Area dibujarBorde(
         g2.setPaint(color);
 }
 ```
-Ahora vamos a crear el borde por medió de la operación entre areas, primero crearemos el area principal con la figura pasada por parámetro:
+Ahora crearemos el borde por medió de la operación entre areas, primero crearemos el area principal con la figura pasada por parámetro:
 ```javascript
 public Area dibujarBorde(
-    Component c, Graphics2D g2, Color color, int x, int y, int ancho, int alto, boolean esLineal, RectangularShape figura
+    Component c, Graphics2D g2, Color color, int x, int y, int ancho, int alto, RectangularShape figura
 ){
     if(color == null)
         g2.setPaint(c.getBackground());
@@ -1352,10 +1345,10 @@ public Area dibujarBorde(
     Area area = new Area(figura);
 }
 ```
-Ahora vamos a crear el area que representará los bordes sobrantes de la figura:
+Se crea ahora el area que representará los bordes sobrantes de la figura:
 ```javascript
 public Area dibujarBorde(
-    Component c, Graphics2D g2, Color color, int x, int y, int ancho, int alto, boolean esLineal, RectangularShape figura
+    Component c, Graphics2D g2, Color color, int x, int y, int ancho, int alto, RectangularShape figura
 ){
     if(color == null)
         g2.setPaint(c.getBackground());
@@ -1369,7 +1362,7 @@ public Area dibujarBorde(
 Ahora realizaremos una **sustracción** entre areas para que el area **regionBorde** represente justamente las partes sobrantes del borde:
 ```javascript
 public Area dibujarBorde(
-    Component c, Graphics2D g2, Color color, int x, int y, int ancho, int alto, boolean esLineal, RectangularShape figura
+    Component c, Graphics2D g2, Color color, int x, int y, int ancho, int alto, RectangularShape figura
 ){
     if(color == null)
         g2.setPaint(c.getBackground());
@@ -1381,10 +1374,10 @@ public Area dibujarBorde(
     regionBorde.subtract(area);
 }
 ```
-Finalmente vamos a cambiar el contexto hacia esta area para que sea la única afectada cuando se pinte un fondo o en caso de que se haya pintado previamente el fondo, para que el contenido dentro del borde no sea tapado por el fondo, ademas vamos a retornar esta area para poder ser pintada en los métodos principales en que se llamen.
+Finalmente vamos a cambiar el contexto hacia esta area para que sea la única afectada cuando se pinte un fondo o en caso de que se haya pintado previamente el fondo, para que el contenido dentro del borde no sea tapado por el fondo, ademas se retorna esta area para poder ser pintada en los métodos principales en que se llamen.
 ```javascript
 public Area dibujarBorde(
-    Component c, Graphics2D g2, Color color, int x, int y, int ancho, int alto, boolean esLineal, RectangularShape figura
+    Component c, Graphics2D g2, Color color, int x, int y, int ancho, int alto, RectangularShape figura
 ){
     if(color == null)
         g2.setPaint(c.getBackground());
@@ -1417,14 +1410,14 @@ public Border getBordeRedondeado(){
 }
 ```
 
-Vamos a implementar este borde, en este caso vamos a incorporarlo en los botones **bEntrar y bRegistrar** de nuestro **Login**.
+El borde ya esta listo para ser usado, en este caso se va a incorporar en los botones **bEntrar y bRegistrar** de nuestro **Login**.
 
 <div align='center'>
     <img  src='https://i.imgur.com/YD736hu.png'>
     <p>Incorporando el borde redondeado.</p>
 </div>
 
-nuestro login se ve así: 
+Nuestro login se ve así: 
 <div align='center'>
     <img  src='https://i.imgur.com/tGnrLHK.png'>
     <p>Bordes redondeados incorporados.</p>
@@ -1440,7 +1433,7 @@ A continuación mostraremos otra versión de este mismo login donde se implement
 # Creación de Bordes Circulares
 
 El caso de dibujar bordes circulares es bastante similar al anterior salvo algunas particularidades que explicaremos a continuación:
-* **Definición del constructor**: En este caso se va a retornar un tipo de objeto **AbstractBorder** a diferencia del anterior donde devolvía un objeto tipo **Border**, este tipo de objetos actuá mejor para figuras diferentes a rectángulos. Como parámetros recibe:
+* **Definición del método**: En este caso se va a retornar un tipo de objeto **AbstractBorder** a diferencia del anterior donde devolvía un objeto tipo **Border**, este tipo de objeto actuá mejor para figuras diferentes a rectángulos. Como parámetros recibe:
     * **Color**: Color de contorno de la circunferencia.
     * **Boolean**: Nos indica si se quiere dibujar o no el contorno.
     * **Image**: Imágen en caso de que el objeto gráfico que incorporará el borde este encima de una imágen de fondo.
@@ -1451,7 +1444,9 @@ public AbstractBorder DibujarBordeCircular(Color color, boolean esLineal, Image 
 }
 ```
 
-* **Tipo AbstractBorder**: Como vamos a retornar un tipo de objeto distinto este tiene otras particularidades, nos pedirá a modo de sugerencia un serial de clase, solo será necesario implementar el método **paintBorder**, los métodos **getBorderInsets e isBorderOpaque** ya no serán necesarios.
+* **Tipo AbstractBorder**: Como vamos a retornar un tipo de objeto distinto este tiene otras particularidades:
+* Nos pedirá a modo de sugerencia un serial de clase
+* Solo será necesario implementar el método **paintBorder**, los métodos **getBorderInsets e isBorderOpaque** ya no serán necesarios.
 ```javascript
 public AbstractBorder DibujarBordeCircular(Color color, boolean esLineal, Image imagen) {
     AbstractBorder bordeCircular = new AbstractBorder() {
@@ -1469,7 +1464,7 @@ public AbstractBorder DibujarBordeCircular(Color color, boolean esLineal, Image 
 
 * **Figura:** Dentro del método **paintBorder** el procedimiento realizado para crear el borde Redondeado va a ser exactamente el mismo a excepción de la figura que se creará, en este caso crearemos un elipse:
 <div align='center'>
-    <img  src='https://i.imgur.com/ptpouku.png'>
+    <img  src='https://i.imgur.com/TipV518.png'>
     <p>Creación de figura circular.</p>
 </div>
 
